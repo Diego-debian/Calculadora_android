@@ -40,17 +40,29 @@ class LoginScreen(RelativeLayout):
 	self.Boton7()
 	self.Boton8()
 	self.Boton9()
+	self.label1()
         self.label2()
 	self.Boton_suma()
 	self.Boton_resta()
 	self.Boton_multi()
 	self.Boton_divi()
+	self.Retroceder()
 
     
 
     def posicion_botones(self):
 	self.posX = 200
 	self.posY = 0
+
+    def Retroceder(self):
+        self.Retroceder = Button(text =' Retro ')
+	self.Retroceder.font_size = 20
+        self.Retroceder.multiline = False
+        self.Retroceder.size_hint = 0.1, 0.1
+        self.Retroceder.pos = self.posX + 370, self.posY + 170
+        self.Retroceder.bind(on_press=self.ac_Retro)
+        self.add_widget(self.Retroceder)   
+
 
     def Restaurar(self):
         self.reset = Button(text =' Reset ')
@@ -240,6 +252,14 @@ class LoginScreen(RelativeLayout):
         self.Boton_divi.pos = self.posX + 280,  self.posY + 30
         self.Boton_divi.bind(on_press=self.ac_Boton_divi)
         self.add_widget(self.Boton_divi)
+
+    def label1(self):
+        self.Label1 = Label(text= " \(^_^)/ ", color = [1,1,1,1])
+        self.Label1.size_hint= 0.1, 0.1
+        self.Label1.font_size= 50
+        self.Label1.pos= 50, 330
+        self.add_widget(self.Label1)
+
 
     def label2(self):
         self.Label2 = Label(color = [1,1,0,1])
@@ -470,6 +490,7 @@ class LoginScreen(RelativeLayout):
 	    self.estado_ante=self.nuevo_esta	    
 
     def ac_Boton_suma(self, *args):
+	self.Label1.text = " + "
 	if self.VAR1 is not None:
 	    self.Igual1()
 	    pass
@@ -511,12 +532,14 @@ class LoginScreen(RelativeLayout):
 
 
     def ac_Igual1(self, *args):
+	self.Label1.text = " = "
 	self.Cual()
 	self.igual.text = " = " 
 	print "aca estoy sa"
 
 
     def ac_Boton_resta(self, *args):
+	self.Label1.text = " - "
 	if self.VAR1 is not None:
 	    self.Igual2()
 	    pass
@@ -558,6 +581,7 @@ class LoginScreen(RelativeLayout):
 
 
     def ac_Igual2(self, *args):
+	self.Label1.text = " = "
 	self.Cual1()
 	self.igual.text = " = " 
 	print "aca estoy sa"
@@ -565,6 +589,7 @@ class LoginScreen(RelativeLayout):
 
 
     def ac_Boton_multi(self, *args):
+	self.Label1.text = " * "
 	if self.VAR1 is not None:
 	    self.Igual3()
 	    pass
@@ -606,12 +631,14 @@ class LoginScreen(RelativeLayout):
 
 
     def ac_Igual3(self, *args):
+	self.Label1.text = " = "
 	self.Cual2()
 	self.igual.text = " = " 
 	print "aca estoy sa"
 
 
     def ac_Boton_divi(self, *args):
+	self.Label1.text = " / "
 	if self.VAR1 is not None:
 	   self.Igual4()
 	   pass
@@ -659,12 +686,14 @@ class LoginScreen(RelativeLayout):
 
 
     def ac_Igual4(self, *args):
+	self.Label1.text = " = "
 	self.Cual3()
 	self.igual.text = " = " 
 	print "aca estoy sa"
 
     def ac_Reset(self, *args):
 	self.Label2.text = " 0 "
+	self.Label1.text = " \(^_^)/ "
 	self.estado_ante = None
 	self.VAR1 =None
 	self.VAR2 = None
@@ -675,6 +704,22 @@ class LoginScreen(RelativeLayout):
 	self.estado_ante = None
 	pass
 	
+    def ac_Retro(self, *args):
+	self.Label1.text = " \(^_^)/ "
+	if self.estado_ante is not None:
+	    longi = str(self.estado_ante)
+	    longitud = longi[:]
+	    i = -1
+	    b = longitud[:-1]	
+	    self.estado_ante = b
+	    self.Label2.text = str(self.estado_ante)
+	if self.estado_ante is None:
+	    print "estado nulo"
+	    self.Label2.text = " 0 "
+#	    self.nuevo_esta = str(self.estado)
+#	    self.Label2.text = str(self.nuevo_esta)
+#	    self.estado_ante=self.nuevo_esta	    
+
 class arduinoApp(App):
     def build(self):
         return LoginScreen()
