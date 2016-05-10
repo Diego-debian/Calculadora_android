@@ -1,2 +1,4 @@
 # Calculadora_android
-Calculadora básica para android con kiv
+Creada por Diego Alberto Parra Garzón 
+licencia GPL3
+Calculadora básica para android con kivy
